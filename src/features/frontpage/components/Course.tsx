@@ -13,7 +13,7 @@ export default class Course extends Component<Props, any> {
     const { id, courseName, quickLinks, version } = this.props
     return (
       <div className="course">
-        <Link href={`/courses/${id}`}>
+        <Link href={`/courses/${id}/tab/1`}>
           <h2 className="course-title">{courseName}</h2>
         </Link>
         <span className="course-version">{version}</span>

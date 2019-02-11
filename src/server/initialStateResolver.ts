@@ -38,3 +38,7 @@ function getCourses(): Course[] {
     }
   })
 }
+
+function resolveCourseTabFromPath(path: string) {
+  return path.split('tab')[1]
+}

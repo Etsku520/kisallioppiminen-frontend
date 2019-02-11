@@ -1,23 +1,32 @@
-import React, { useState } from 'react'
+import React from 'react'
+import Link from '../../baseComponents/Link'
+import { connect } from 'react-redux'
+import { InitialState, CoursePageState } from '../../../types/InitialState'
 
-const CourseTab = (props: any) => {
-  function changeTab() {
-    props.updateProps({
-      value: props.tabId
-    })
-  }
+interface Props {
+  courseTabId: number
+  tabId: number
+  header: JSX.Element
+  courseId: number
+}
 
+const CourseTab = ({tabId, courseTabId, header, courseId}: Props) => {
   return (
-    props.value === props.tabId ? (
-      <div style={{ backgroundColor: '#30A491' }} className="section" onClick={() => changeTab()}>
-        {props.header}
+    <Link href={`/courses/${courseId}/tab/${tabId}`}>
+      <div className={courseTabId !== tabId ? 'section' : 'section-active'}>
+        {header}
       </div>
-    ) : (
-      <div className="section" onClick={() => changeTab()}>
-        {props.header}
-      </div>
-    )
+    </Link>
   )
 }
 
-export default CourseTab
+const mapStateToProps = (state: { pageState: InitialState; coursePageState: CoursePageState }) => ({
+  courseTabId: Number(state.pageState.pageParams.pathParams.tabId),
+  courseId: state.pageState.pageParams.pathParams.id
+})
+
+const ConnectedCoursTab = connect(
+  mapStateToProps
+)(CourseTab)
+
+export default ConnectedCoursTab
